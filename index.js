@@ -239,6 +239,56 @@ app.get("/billing/view", async (req, res, next) => {
   }
 });
 
+
+// Edit Billing route - GET
+app.get("/billing/edit/:id", async (req, res, next) => {
+  const billingId = req.params.id; // Get the billing ID from the URL
+  try {
+      const billingResult = await queryDatabase(`
+          SELECT b.id, b.customer_id, b.total_amount, b.date, c.name AS customer_name
+          FROM billings b
+          JOIN customers c ON b.customer_id = c.id
+          WHERE b.id = $1
+      `, [billingId]);
+      
+      if (billingResult.rows.length > 0) {
+          const billing = billingResult.rows[0];
+          const productsResult = await queryDatabase("SELECT * FROM products"); // Fetch products for dropdown
+          res.render("edit-billing", { billing, products: productsResult.rows }); // Render edit-billing view with billing data
+      } else {
+          res.status(404).send("Billing record not found");
+      }
+  } catch (err) {
+      next(err);
+  }
+});
+
+// Update Billing route - POST
+app.post("/billing/edit/:id", async (req, res, next) => {
+  const billingId = req.params.id;
+  const { customer, total_amount } = req.body;
+
+  try {
+      await queryDatabase("UPDATE billings SET customer_id = $1, total_amount = $2 WHERE id = $3", [customer, total_amount, billingId]);
+      res.redirect("/billing/view");
+  } catch (err) {
+      next(err);
+  }
+});
+
+// Delete Billing route
+app.get("/billing/delete/:id", async (req, res, next) => {
+  const billingId = req.params.id; // Get the billing ID from the URL
+  try {
+      await queryDatabase("DELETE FROM billings WHERE id = $1", [billingId]);
+      res.redirect("/billing/view"); // Redirect to the view billings page after deletion
+  } catch (err) {
+      next(err);
+  }
+});
+
+
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
