@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Customer - Billing Software</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Link to your CSS file -->
+    <style>
+        /* Form styles */
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center; /* Center align heading */
+            color: #333;
+            margin-bottom: 20px; /* Space below heading */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column; /* Arrange form elements vertically */
+        }
+
+        label {
+            margin-bottom: 5px; /* Space below labels */
+            color: #555; /* Dark gray for labels */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc; /* Light border */
+            margin-bottom: 15px; /* Space between fields */
+            font-size: 16px; /* Font size for input */
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF; /* Blue background */
+            color: white; /* White text */
+            font-size: 16px;
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background 0.3s; /* Smooth background transition */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .back-link {
+            text-align: center; /* Center align back link */
+            margin-top: 20px; /* Space above */
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #007BFF; /* Blue link color */
+        }
+
+        .back-link a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Include Header -->
+   <%- include("header.ejs") %>
+    <div class="container">
+        <h2>Add Customer</h2>
+        <form action="/customers/add" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Customer Name" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="contact">Contact Number:</label>
+            <input type="text" id="contact" name="contact" placeholder="Contact Number" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+
+            <button type="submit">Save Customer</button>
+        </form>
+        <div class="back-link">
+            <a href="/customers/view">Back to View Customers</a>
+        </div>
+    </div>
+
+    <%-include('footer.ejs')%>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Billings - Billing Software</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+        /* Styles for the view billings page */
+        .container {
+            max-width: 800px;           /* Maximum width of the container */
+            margin: 20px auto;          /* Center the container */
+            padding: 20px;              /* Padding inside the container */
+            background-color: white;     /* White background */
+            border-radius: 8px;         /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+        }
+
+        h2 {
+            text-align: center;         /* Center align heading */
+            color: #333;                /* Dark color for heading */
+            margin-bottom: 20px;        /* Space below heading */
+        }
+
+        table {
+            width: 100%;                /* Full width table */
+            border-collapse: collapse;  /* Collapse borders */
+        }
+
+        th, td {
+            border: 1px solid #ddd;     /* Light gray border */
+            padding: 10px;              /* Padding for cells */
+            text-align: left;           /* Left align text */
+        }
+
+        th {
+            background-color: #007BFF; /* Blue background for header */
+            color: white;               /* White text for header */
+        }
+
+        tr:hover {
+            background-color: #f1f1f1; /* Light gray background on row hover */
+        }
+
+        .back-link {
+            text-align: center;         /* Center align back link */
+            margin-top: 20px;          /* Space above */
+        }
+
+        .back-link a {
+            text-decoration: none;       /* Remove underline */
+            color: #007BFF;              /* Blue link color */
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;  /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Include Header -->
+    <%- include("header.ejs") %>
+
+    <div class="container">
+        <h2>View Billings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Billing ID</th>
+                    <th>Customer Name</th>
+                    <th>Total Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% billings.forEach(billing => { %>
+                    <tr>
+                        <td><%= billing.id %></td>
+                        <td><%= billing.customer_name %></td>
+                        <td>Rs <%= Number(billing.total_amount).toFixed(2) %></td>
+                        <td><%= billing.date.toISOString().split('T')[0] %></td> <!-- Format date -->
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <div class="back-link">
+            <a href="/billing/add">Add New Billing</a>
+        </div>
+    </div>
+
+    <%-include('footer.ejs')%>
+
+</body>
+</html>

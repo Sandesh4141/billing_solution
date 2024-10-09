@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Billing Software</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+   
+    <style>
+   
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f4f4f4;
+      }
+
+      
+      .sidebar {
+        width: 250px;
+        background-color: #333;
+        color: white;
+        height: 100vh;
+        padding: 15px;
+        position: fixed;
+      }
+
+      .sidebar h2 {
+        color: #fff;
+      }
+
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .sidebar ul li {
+        margin: 10px 0;
+      }
+
+      .sidebar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        border-radius: 5px;
+      }
+
+      .sidebar a:hover {
+        background-color: #444;
+      }
+
+      /* Main content styles */
+      .main-content {
+        margin-left: 270px; /* Leave space for sidebar */
+        padding: 20px;
+      }
+
+      .dashboard-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .cards {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .card {
+        background-color: #007bff; /* Blue background for cards */
+        color: white; /* White text */
+        border-radius: 10px;
+        padding: 20px;
+        flex: 1;
+        min-width: 250px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+      }
+
+      .card h3 {
+        margin: 10px 0;
+      }
+
+      .card p {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      /* Footer styles */
+      footer {
+        text-align: center;
+        padding: 10px 0;
+        background: #333;
+        color: white;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <%-include("header.ejs")%>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <ul>
+        <li><a href="/customers/add">Add Customer</a></li>
+        <li><a href="/customers/view">View Customers</a></li>
+        <li><a href="/products/add">Add Product</a></li>
+        <li><a href="/products/view">View Products</a></li>
+        <li><a href="/billing/add">Add Billing</a></li>
+        <li><a href="/billing/view">View Billings</a></li>
+
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="dashboard-container">
+        <h2>Dashboard</h2>
+        <div class="cards">
+          <!-- Total Sales Card -->
+          <div class="card">
+            <div class="card-content">
+              <i class="fas fa-shopping-cart icon"></i>
+              <h3>Total Sales</h3>
+              <p><%= totalSales%></p>
+            </div>
+          </div>
+
+          <!-- Total Revenue Card -->
+          <div class="card">
+            <div class="card-content">
+              <i class="fas fa-dollar-sign icon"></i>
+              <h3>Total Revenue</h3>
+              <p><%=totalRevenue %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <%-include('footer.ejs')%>
+  </body>
+</html>
